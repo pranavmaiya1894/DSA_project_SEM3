@@ -9,6 +9,7 @@ This project makes use of mplayer which is an external software for playing musi
     sudo apt -y install mplayer
 
 Running the project : (in a linux environment)
+
   gcc musicplayer.c
   
   ./a.out
