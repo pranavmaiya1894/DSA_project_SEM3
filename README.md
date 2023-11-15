@@ -1,5 +1,5 @@
 # DSA_project_SEM3
-This project makes use of mplayer which is an external software for playing music from the local storage .It can be insatlled using the below command.
+This project makes use of mplayer which is an external software for playing music from the local storage .It can be installed using the below command.
 
 
     Update apt database with apt-get using the following command:
