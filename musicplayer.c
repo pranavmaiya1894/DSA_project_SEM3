@@ -59,8 +59,7 @@ Queue *initializeQueue() {
     return queue;
 }
 
-void playSong(const char *song) {
-    char command[100];
+void playSong(const char *song) { char command[100];
     snprintf(command, sizeof(command), "mplayer %s", song);
     system(command);
     int songIndex = -1;
@@ -79,13 +78,18 @@ void insertSong(Node **head, char *songName) {
     Node *newNode = (Node *)malloc(sizeof(Node));
     newNode->songName = strdup(songName);
     newNode->next = NULL;
+
     if (*head == NULL) {
         newNode->next = newNode;
         *head = newNode;
     } else {
-        newNode->next = (*head)->next;
-        (*head)->next = newNode;
-        *head = newNode;
+        Node *lastNode = *head;
+        while (lastNode->next != *head) {
+            lastNode = lastNode->next;
+        }
+
+        lastNode->next = newNode;
+        newNode->next = *head;
     }
 }
 
@@ -145,18 +149,19 @@ void playPlaylist(Node *head) {
     if (head == NULL) {
         printf("Playlist is empty.\n");
     } else {
-        Node *current = head->next;
-        while (current != head) {
+        Node *current = head;
+		playSong(current -> songName);
+		current = current -> next;
+        system("clear");
+        printf("******\n\n");
+        sleep(3);
+		while (current != head) {
             playSong(current->songName);
             current = current->next;
             system("clear");
             printf("******\n\n");
             sleep(3);
         }
-        playSong(current->songName);
-        system("clear");
-        printf("******\n\n");
-        sleep(3);
         printf("End of playlist. You have 10 seconds to exit from the current playlist mode :\n");
         struct timeval tv;
         tv.tv_sec = 10;
@@ -309,7 +314,7 @@ void showMusicStats()
     if (!songFound) {
         printf("Song not found: %s\n", songName);
     }
-    sleep(5);
+    sleep(10);
     system("clear");
 }
 
@@ -380,4 +385,3 @@ int main() {
     }
     return 0;
 }
-
